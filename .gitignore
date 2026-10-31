@@ -1,0 +1,7 @@
+.venv/
+out/
+data/raw/cricsheet/json/
+data/raw/cricsheet/*.zip
+__pycache__/
+.DS_Store
+data/raw/cricsheet_people.csv

@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- Link-preview image for LinkedIn and other sites. Render at 1200x627:
+     Chrome --headless=new --window-size=1200,627 --screenshot=site/og.png file://.../tools/og_card.html -->
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; width: 1200px; height: 627px; overflow: hidden; }
+  body { background: #F6F1EA; color: #2E2019; font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .card { box-sizing: border-box; height: 627px; padding: 64px 72px; display: flex; flex-direction: column; }
+  .kicker { font-size: 24px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #7A6656; }
+  h1 { font-size: 104px; line-height: 1; margin: 18px 0 0; font-weight: 800; letter-spacing: -.02em; }
+  h1 .amp { color: #7A6656; font-weight: 500; }
+  h1 .s { color: #2E7D5B; } h1 .p { color: #AD4C5B; }
+  .lede { font-size: 30px; margin: 22px 0 0; color: #4B3424; max-width: 980px; }
+  .row { display: flex; gap: 22px; margin-top: auto; }
+  .stat { flex: 1; background: #fff; border-radius: 18px; padding: 22px 20px; border: 1px solid #E3D6C8; }
+  .stat .v { font-size: 30px; font-weight: 800; }
+  .stat .l { font-size: 19px; color: #7A6656; margin-top: 6px; line-height: 1.3; }
+  .stat.s .v { color: #2E7D5B; } .stat.p .v { color: #AD4C5B; }
+</style></head>
+<body><div class="card">
+  <div class="kicker">IPL 2026 · value for money</div>
+  <h1><span class="s">Steals</span> <span class="amp">&amp;</span> <span class="p">Splurges</span></h1>
+  <p class="lede">Every player's season, valued at the league's own going rate.</p>
+  <div class="row" id="row"></div>
+</div>
+<script src="../site/data/season_2026.js"></script>
+<script>
+  // Same picks and formatting as the site's headline stats (regulars = 5+ matches).
+  const d = window.SEASON_2026, reg = d.players.filter(p => p.matches >= 5);
+  const cr = v => (v >= 10 ? v.toFixed(1) : v.toFixed(2)).replace(/\.?0+$/, "");
+  const steal = [...reg].sort((a, b) => a.gap - b.gap)[0], splurge = [...reg].sort((a, b) => b.gap - a.gap)[0];
+  document.getElementById("row").innerHTML = [
+    ["s", steal.name, `₹${cr(steal.fair)} cr of value on a ₹${cr(steal.salary)}\u00a0cr\u00a0deal`],
+    ["p", splurge.name, `₹${cr(splurge.salary)} cr for a replacement-level season`],
+    ["", `₹${d.rate_lakh_per_run} lakh`, "the going rate for one run above replacement"],
+  ].map(([c, v, l]) => `<div class="stat ${c}"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+</script>
+</body></html>

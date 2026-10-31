@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IPL Steals &amp; Splurges</title>
+<meta name="description" content="Every IPL 2026 player's season, valued at the league's own going rate. Who delivered more than they were paid, and who didn't?">
+<meta property="og:title" content="IPL 2026: Steals & Splurges">
+<meta property="og:description" content="Who delivered more than they were paid? Every player's season, valued at the league's own going rate.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tiwari-nikita.github.io/ipl-steals-splurges/">
+<meta property="og:image" content="https://tiwari-nikita.github.io/ipl-steals-splurges/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Steals &amp; Splurges: every IPL 2026 player's season, valued at the league's own going rate">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">IPL 2026 · value for money</p>
+    <h1>Steals <span class="amp">&amp;</span> <span class="splurge-word">Splurges</span></h1>
+    <p class="lede">Every player's 2026 season, valued at the league's own going rate. Who delivered more than they were paid, and who didn't?</p>
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card">
+    <div class="section-head">
+      <h2>Paid vs. value delivered</h2>
+      <p class="hint">Above the line: delivered more than they cost. Below: cost more than they delivered. Hover or tap a dot.</p>
+    </div>
+    <div class="controls">
+      <label>Team <select id="team"><option value="">All teams</option></select></label>
+      <label>Role <select id="role"><option value="">All roles</option><option>Batter</option><option>Bowler</option><option>All-rounder</option></select></label>
+      <label class="grow">Find a player <input id="search" type="search" placeholder="e.g. Kohli"></label>
+    </div>
+    <div id="chart" class="chart" role="img" aria-label="Scatter plot of salary against value delivered"></div>
+    <div id="tip" class="tip" hidden></div>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Biggest steals</h2>
+      <p class="hint">Delivered the most value above their price. Regulars only (5+ matches).</p>
+      <ol id="steals" class="rank"></ol>
+    </section>
+    <section class="card">
+      <h2>Biggest splurges</h2>
+      <p class="hint">Cost the most above the value they delivered. Regulars only. Keeping, fielding and captaincy aren't counted, so wicketkeeper-captains get no credit for those jobs.</p>
+      <ol id="splurges" class="rank"></ol>
+    </section>
+  </div>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Team value table</h2>
+      <p class="hint">Runs above replacement per crore spent (injured and withdrawn players excluded).</p>
+      <ol id="teams" class="rank teams"></ol>
+    </section>
+    <section class="card">
+      <h2>Paid, didn't play</h2>
+      <p class="hint">On the 2026 payroll with no match played (not listed as injured or withdrawn). Squads carry depth for a reason, so read this as context, not blame.</p>
+      <ul id="benched" class="benched"></ul>
+    </section>
+  </div>
+
+  <section class="card method" id="method">
+    <h2>How this works</h2>
+    <p><strong>Runs added.</strong> For every ball of IPL 2026 we ask: from this exact match situation (balls left, wickets down), how many runs does an average team score? A batter who beats that expectation adds runs; getting out costs runs. A bowler gets the opposite. Totals are centred so the average player in 2026 adds zero.</p>
+    <p><strong>Replacement level.</strong> Teams can always sign a minimum-price player (₹30 lakh). We measure how those players actually performed, then count each player's <em>runs above replacement</em>.</p>
+    <p><strong>The going rate.</strong> We divide what teams spent above the minimum by all the runs above replacement in the league. That gives the price of one run, <span id="rate"></span>, and each player's <em>value delivered</em> = ₹30 lakh + their runs above replacement × that rate.</p>
+    <p><strong>What it doesn't count.</strong> Wicketkeeping, fielding, captaincy, leadership, and what a player adds off the field. Value is one season, so a quiet year after a great one shows up as a quiet year. Second innings use the same expectations as first innings. Players listed as withdrawn or injured are left out.</p>
+    <p class="credits">Ball-by-ball data: <a href="https://cricsheet.org/" target="_blank" rel="noopener">Cricsheet</a> (Open Data Commons Attribution License). Salaries: Wikipedia, <a href="https://en.wikipedia.org/wiki/List_of_2026_Indian_Premier_League_personnel_changes" target="_blank" rel="noopener">List of 2026 IPL personnel changes</a> (CC BY-SA). An independent fan project, not affiliated with the IPL, BCCI or any franchise.</p>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p>Built by <a href="https://www.linkedin.com/in/nikitatiwari-/" target="_blank" rel="noopener">Nikita Tiwari</a> · solving problems, one dataset at a time</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="data/season_2026.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
