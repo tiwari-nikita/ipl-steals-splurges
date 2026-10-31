@@ -31,7 +31,7 @@ function init(data) {
     [`₹${data.rate_lakh_per_run} lakh`, "what one run above a replacement player was worth in 2026"],
     [steal.name, `biggest steal: ${money(steal.value)} of value on a ${money(steal.salary)} deal`],
     [splurge.name, `biggest splurge: ${money(splurge.salary)} paid for a ${splurge.rar > 0 ? money(splurge.value) + " season" : "replacement-level season"}`],
-    [TEAMS[bestTeam.team].code, `best value per crore: ${bestTeam.rar.toFixed(0)} runs above replacement`],
+    [TEAMS[bestTeam.team].code, `best value for money: ${bestTeam.value_per_cr.toFixed(1)} runs above replacement per crore spent`],
   ].map(([v, l]) => `<div class="stat"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
 
   // ---- lists ----
